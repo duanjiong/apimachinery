@@ -419,6 +419,20 @@ func autoConvert_url_Values_To_v1_ListOptions(in *url.Values, out *ListOptions, 
 	} else {
 		out.Limit = 0
 	}
+	if values, ok := map[string][]string(*in)["offset"]; ok && len(values) > 0 {
+		if err := runtime.Convert_Slice_string_To_int64(&values, &out.Offset, s); err != nil {
+			return err
+		}
+	} else {
+		out.Limit = 0
+	}
+	if values, ok := map[string][]string(*in)["num"]; ok && len(values) > 0 {
+		if err := runtime.Convert_Slice_string_To_int64(&values, &out.Num, s); err != nil {
+			return err
+		}
+	} else {
+		out.Limit = 0
+	}
 	if values, ok := map[string][]string(*in)["continue"]; ok && len(values) > 0 {
 		if err := runtime.Convert_Slice_string_To_string(&values, &out.Continue, s); err != nil {
 			return err
